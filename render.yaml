@@ -1,19 +1,18 @@
 services:
   - type: web
     name: notes-backend
-    env: docker
+    runtime: docker
     plan: free
     region: oregon
-    dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    # ...your existing fields like repo, autoDeploy, healthCheckPath, etc.
     envVars:
       - key: DB_URL
         value: jdbc:postgresql://dpg-d2sqg7je5dus73f0sfp0-a.oregon-postgres.render.com:5432/notes_db_oo5y?sslmode=require
       - key: DB_USER
         value: notes_db_oo5y_user
       - key: DB_PASSWORD
-        value: RQ0OLv9ijw8WBuUKu1KOyLIEOWdc7uVu
+        value: RQ0OLv9ijw8WBuUKu1KOyLIEOWdc7uVu   # (example)
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_ORIGIN
-        value: http://localhost:5173
+        value: https://notes-frontend-plum.vercel.app,http://localhost:5173
