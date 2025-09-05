@@ -51,4 +51,18 @@ public class NoteController {
         svc.delete(uid(auth), id);
         return ResponseEntity.ok().body("{\"ok\":true}");
     }
+
+    @PostMapping("/{id}/share")
+    public NoteDtos.NoteRes share(Authentication auth, @PathVariable Long id) {
+        Note n = svc.share(uid(auth), id);
+        return new NoteDtos.NoteRes(
+                n.getId(),
+                n.getTitle(),
+                n.getContent(),
+                n.isPublic(),
+                n.getShareToken(),
+                n.getCreatedAt(),
+                n.getUpdatedAt()
+        );
+    }
 }

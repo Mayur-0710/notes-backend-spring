@@ -61,4 +61,17 @@ public class NoteService {
         return notes.findByShareTokenAndIsPublic(token, true)
                 .orElseThrow(() -> new RuntimeException("Invalid or private share link"));
     }
+
+    public Note share(Long userId, Long noteId) {
+        Note n = get(userId, noteId); // reuse your existing get()
+
+        n.setPublic(true);
+
+        if (n.getShareToken() == null || n.getShareToken().isEmpty()) {
+            n.setShareToken(ShareToken.generate());
+        }
+
+        return notes.save(n);
+    }
+
 }
