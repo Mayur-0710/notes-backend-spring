@@ -7,16 +7,14 @@ services:
     autoDeploy: true
     # if you already have envVars, just add the FRONTEND_ORIGIN entry below:
     envVars:
-      # these 3 (and JWT_SECRET) already exist in your service; keep them “unsynced”
       - key: DB_URL
-        sync: false
+        value: jdbc:postgresql://dpg-...oregon-postgres.render.com:5432/notes_db_oo5y?sslmode=require
       - key: DB_USER
-        sync: false
+        value: notes_db_oo5y_user
       - key: DB_PASSWORD
-        sync: false
+        value: <your password>
       - key: JWT_SECRET
-        sync: false
-
-      # 👇 add/modify this line to allow your Vercel app (and local dev if you want)
+        value: <a long random string (>=32 chars)>
       - key: FRONTEND_ORIGIN
         value: https://notes-frontend-plum.vercel.app,http://localhost:5173
+
