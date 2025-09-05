@@ -1,18 +1,22 @@
 services:
   - type: web
     name: notes-backend
-    runtime: docker
+    env: docker
     plan: free
-    region: oregon
-    # ...your existing fields like repo, autoDeploy, healthCheckPath, etc.
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    # if you already have envVars, just add the FRONTEND_ORIGIN entry below:
     envVars:
+      # these 3 (and JWT_SECRET) already exist in your service; keep them “unsynced”
       - key: DB_URL
-        value: jdbc:postgresql://dpg-d2sqg7je5dus73f0sfp0-a.oregon-postgres.render.com:5432/notes_db_oo5y?sslmode=require
+        sync: false
       - key: DB_USER
-        value: notes_db_oo5y_user
+        sync: false
       - key: DB_PASSWORD
-        value: RQ0OLv9ijw8WBuUKu1KOyLIEOWdc7uVu   # (example)
+        sync: false
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
+
+      # 👇 add/modify this line to allow your Vercel app (and local dev if you want)
       - key: FRONTEND_ORIGIN
         value: https://notes-frontend-plum.vercel.app,http://localhost:5173
